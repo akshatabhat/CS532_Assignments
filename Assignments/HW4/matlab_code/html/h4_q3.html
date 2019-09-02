@@ -1,0 +1,200 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>h4_q3</title><meta name="generator" content="MATLAB 9.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2019-03-26"><meta name="DC.source" content="h4_q3.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><pre class="codeinput"><span class="comment">%Question 3</span>
+data = readtable(<span class="string">'seeds.csv'</span>);
+kernel_width = data.Var5;
+kernel_height = data.Var7;
+variety = data.Var8;
+
+X = [kernel_width kernel_height];
+X = [X; [-1 -1]; [10 0]];
+
+
+disp(<span class="string">'3a)'</span>);
+disp(<span class="string">'Scatter Plot'</span>);
+figure(1);
+[idx, C] = kmeans(X, 3, <span class="string">'Start'</span>, <span class="string">'Sample'</span>, <span class="string">'Replicates'</span>,100);
+gscatter(X(:,1), X(:,2), idx);
+xlabel(<span class="string">'Kernel Width'</span>);
+ylabel(<span class="string">'Kernel Height'</span>);
+hold <span class="string">on</span>;
+plot(C(:,1), C(:,2), <span class="string">'ok'</span>, <span class="string">'MarkerSize'</span>, 10);
+title(<span class="string">'kmeans, K=3'</span>);
+legend(<span class="string">'1'</span>, <span class="string">'2'</span>, <span class="string">'3'</span>,<span class="string">'centroids'</span>)
+snapnow;
+
+disp(<span class="string">'3b)'</span>);
+disp(<span class="string">'Scatter Plot'</span>);
+figure(2);
+[idx, C] = kmeans(X, 3, <span class="string">'Start'</span>, <span class="string">'Sample'</span>, <span class="string">'Replicates'</span>,100, <span class="string">'Distance'</span>,<span class="string">'cityblock'</span>);
+gscatter(X(:,1), X(:,2), idx);
+xlabel(<span class="string">'Kernel Width'</span>);
+ylabel(<span class="string">'Kernel Height'</span>);
+hold <span class="string">on</span>;
+plot(C(:,1), C(:,2), <span class="string">'ok'</span>, <span class="string">'MarkerSize'</span>, 10);
+title(<span class="string">'kmedians, K=3'</span>);
+legend(<span class="string">'1'</span>, <span class="string">'2'</span>, <span class="string">'3'</span>,<span class="string">'centroids'</span>)
+snapnow;
+
+disp(<span class="string">'3c)'</span>);
+disp(<span class="string">'Scatter Plot'</span>);
+figure(3);
+[idx, C] = kmedoids(X, 3, <span class="string">'Start'</span>, <span class="string">'Sample'</span>, <span class="string">'Replicates'</span>,100, <span class="string">'Distance'</span>,<span class="string">'cityblock'</span>);
+gscatter(X(:,1), X(:,2), idx);
+xlabel(<span class="string">'Kernel Width'</span>);
+ylabel(<span class="string">'Kernel Height'</span>);
+hold <span class="string">on</span>;
+plot(C(:,1), C(:,2), <span class="string">'ok'</span>, <span class="string">'MarkerSize'</span>, 10);
+title(<span class="string">'kmediods, K=3'</span>);
+legend(<span class="string">'1'</span>, <span class="string">'2'</span>, <span class="string">'3'</span>,<span class="string">'centroids'</span>)
+snapnow;
+
+disp(<span class="string">'4d)'</span>)
+disp(<span class="string">'In k-means, we see one cluster that contains just one of the outliers. We can see that k-means is sensitive to outliers.'</span>);
+disp(<span class="string">'As we know, in case of l2-norm calculation, one very distant outlier can modify the mean to a large extent.'</span>);
+disp(<span class="string">'In case of k-medians, clusters seem right - here the outlier doesn&#8217;t have a huge impact on centroids and the clusters, as we'</span>);
+disp(<span class="string">'use the manhattan distance.  k-medians is more robust that kmeans. Even in-case of k-mediods using manhattan distance, clusters'</span>);
+disp(<span class="string">'seem right - the outlier doesn&#8217;t have a huge impact. This is more robust than k-means. Also in general, k-mediods is more robust'</span>);
+disp(<span class="string">'than k-medians as well. It chooses cluster centres among the data points as opposed to k-medians. On zooming into the figures,'</span>);
+disp(<span class="string">'this can be clearly observed.'</span>)
+</pre><pre class="codeoutput">3a)
+Scatter Plot
+</pre><img vspace="5" hspace="5" src="h4_q3_01.png" alt=""> <pre class="codeoutput">3b)
+Scatter Plot
+</pre><img vspace="5" hspace="5" src="h4_q3_02.png" alt=""> <pre class="codeoutput">3c)
+Scatter Plot
+</pre><img vspace="5" hspace="5" src="h4_q3_03.png" alt=""> <pre class="codeoutput">4d)
+In k-means, we see one cluster that contains just one of the outliers. We can see that k-means is sensitive to outliers.
+As we know, in case of l2-norm calculation, one very distant outlier can modify the mean to a large extent.
+In case of k-medians, clusters seem right - here the outlier doesn&#8217;t have a huge impact on centroids and the clusters, as we
+use the manhattan distance.  k-medians is more robust that kmeans. Even in-case of k-mediods using manhattan distance, clusters
+seem right - the outlier doesn&#8217;t have a huge impact. This is more robust than k-means. Also in general, k-mediods is more robust
+than k-medians as well. It chooses cluster centres among the data points as opposed to k-medians. On zooming into the figures,
+this can be clearly observed.
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2018a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%Question 3
+data = readtable('seeds.csv');
+kernel_width = data.Var5;
+kernel_height = data.Var7;
+variety = data.Var8;
+
+X = [kernel_width kernel_height];
+X = [X; [-1 -1]; [10 0]];
+
+
+disp('3a)');
+disp('Scatter Plot');
+figure(1);
+[idx, C] = kmeans(X, 3, 'Start', 'Sample', 'Replicates',100);
+gscatter(X(:,1), X(:,2), idx);
+xlabel('Kernel Width');
+ylabel('Kernel Height');
+hold on;
+plot(C(:,1), C(:,2), 'ok', 'MarkerSize', 10);
+title('kmeans, K=3');
+legend('1', '2', '3','centroids')
+snapnow;
+
+disp('3b)');
+disp('Scatter Plot');
+figure(2);
+[idx, C] = kmeans(X, 3, 'Start', 'Sample', 'Replicates',100, 'Distance','cityblock');
+gscatter(X(:,1), X(:,2), idx);
+xlabel('Kernel Width');
+ylabel('Kernel Height');
+hold on;
+plot(C(:,1), C(:,2), 'ok', 'MarkerSize', 10);
+title('kmedians, K=3');
+legend('1', '2', '3','centroids')
+snapnow;
+
+disp('3c)');
+disp('Scatter Plot');
+figure(3);
+[idx, C] = kmedoids(X, 3, 'Start', 'Sample', 'Replicates',100, 'Distance','cityblock');
+gscatter(X(:,1), X(:,2), idx);
+xlabel('Kernel Width');
+ylabel('Kernel Height');
+hold on;
+plot(C(:,1), C(:,2), 'ok', 'MarkerSize', 10);
+title('kmediods, K=3');
+legend('1', '2', '3','centroids')
+snapnow;
+
+disp('4d)')
+disp('In k-means, we see one cluster that contains just one of the outliers. We can see that k-means is sensitive to outliers.');
+disp('As we know, in case of l2-norm calculation, one very distant outlier can modify the mean to a large extent.'); 
+disp('In case of k-medians, clusters seem right - here the outlier doesn’t have a huge impact on centroids and the clusters, as we');
+disp('use the manhattan distance.  k-medians is more robust that kmeans. Even in-case of k-mediods using manhattan distance, clusters');
+disp('seem right - the outlier doesn’t have a huge impact. This is more robust than k-means. Also in general, k-mediods is more robust');
+disp('than k-medians as well. It chooses cluster centres among the data points as opposed to k-medians. On zooming into the figures,');
+disp('this can be clearly observed.')
+##### SOURCE END #####
+--></body></html>

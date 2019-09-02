@@ -1,0 +1,212 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>h7q2</title><meta name="generator" content="MATLAB 9.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2019-05-09"><meta name="DC.source" content="h7q2.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><pre class="codeinput"><span class="comment">% Homework 7 - Question 2</span>
+data = readtable(<span class="string">'bc_wisc.csv'</span>);
+data = data.Variables;
+train = data(1:400,:);
+test = data(401:end,:);
+
+disp(<span class="string">'2a)'</span>);
+X_train = train(:,3:end);
+y_train = train(:,2);
+
+X_test= test(:,3:end);
+y_test = test(:,2);
+
+tree = fitctree(X_train,y_train);
+y_pred = predict(tree,X_test);
+accuracy = sum(y_pred==y_test)/size(y_test,1);
+fprintf(<span class="string">"Fraction of test points correctly classified by decision tree = %f \n"</span>, accuracy);
+
+disp(<span class="string">'2b)'</span>);
+view(tree, <span class="string">'Mode'</span>, <span class="string">'Graph'</span>)
+snapnow;
+top_features = tree.CutPredictor(1:7);
+fprintf(<span class="string">"Features that are considered as important by the decision tree : "</span>);
+<span class="keyword">for</span> i=1:7
+    val = top_features{i};
+    <span class="keyword">if</span>(~isempty(val))
+        f = str2num(val(2:end));
+        fprintf(<span class="string">"%d,"</span>,f);
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+fprintf(<span class="string">"\n"</span>)
+
+disp(<span class="string">'2c)'</span>);
+num_samples = 300;
+y_pred_s = zeros(size(X_test,1),100);
+top_features = zeros(30,1);
+<span class="keyword">for</span> i=1:100
+    [~, idx] = datasample(X_train, num_samples);
+    tree = fitctree(X_train(idx,:), y_train(idx,:));
+    y_pred_s(:,i) = predict(tree,X_test);
+    top_features = top_features + important_features(tree);
+<span class="keyword">end</span>
+y_pred = mode(y_pred_s,2);
+accuracy = sum(y_pred==y_test)/size(y_test,1);
+fprintf(<span class="string">"Fraction of test points correctly classified by bagging of decision trees = %f, which is better that the accuracy in 2b \n"</span>, accuracy);
+[top_features_sorted , top_features_order] = sort(top_features,<span class="string">'descend'</span>);
+tf = top_features_order(1:5);
+
+disp(<span class="string">'2d)'</span>);
+fprintf(<span class="string">"Features that are considered as important overall, ranked according to number of times they appear as important \n amonge 100 trees in the ensemble  : "</span>);
+<span class="keyword">for</span> i=1:5
+    fprintf(<span class="string">"%d,"</span>, tf(i));
+<span class="keyword">end</span>
+fprintf(<span class="string">"\n"</span>);
+
+<span class="keyword">function</span> top_featues = important_features(tree)
+    top_featues = zeros(30,1);
+    cut_pred = tree.CutPredictor(1:7);
+    <span class="keyword">for</span> i=1:7
+        val = cut_pred{i};
+        <span class="keyword">if</span>(~isempty(val))
+            top_featues(str2num(val(2:end))) = 1;
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">2a)
+Fraction of test points correctly classified by decision tree = 0.943750 
+2b)
+</pre><img vspace="5" hspace="5" src="h7q2_01.png" alt=""> <pre class="codeoutput">Features that are considered as important by the decision tree : 21,28,12,11,22,
+2c)
+Fraction of test points correctly classified by bagging of decision trees = 0.962500, which is better that the accuracy in 2b 
+2d)
+Features that are considered as important overall, ranked according to number of times they appear as important 
+ amonge 100 trees in the ensemble  : 28,21,2,23,11,
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2018a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+% Homework 7 - Question 2
+data = readtable('bc_wisc.csv');
+data = data.Variables;
+train = data(1:400,:);
+test = data(401:end,:);
+
+disp('2a)');
+X_train = train(:,3:end);
+y_train = train(:,2);
+
+X_test= test(:,3:end);
+y_test = test(:,2);
+
+tree = fitctree(X_train,y_train);
+y_pred = predict(tree,X_test);
+accuracy = sum(y_pred==y_test)/size(y_test,1);
+fprintf("Fraction of test points correctly classified by decision tree = %f \n", accuracy);
+
+disp('2b)');
+view(tree, 'Mode', 'Graph')
+snapnow;
+top_features = tree.CutPredictor(1:7);
+fprintf("Features that are considered as important by the decision tree : ");
+for i=1:7
+    val = top_features{i};
+    if(~isempty(val))
+        f = str2num(val(2:end));
+        fprintf("%d,",f);
+    end
+end
+fprintf("\n")
+
+disp('2c)');
+num_samples = 300;
+y_pred_s = zeros(size(X_test,1),100);
+top_features = zeros(30,1);
+for i=1:100
+    [~, idx] = datasample(X_train, num_samples);
+    tree = fitctree(X_train(idx,:), y_train(idx,:));
+    y_pred_s(:,i) = predict(tree,X_test);
+    top_features = top_features + important_features(tree);
+end
+y_pred = mode(y_pred_s,2);
+accuracy = sum(y_pred==y_test)/size(y_test,1);
+fprintf("Fraction of test points correctly classified by bagging of decision trees = %f, which is better that the accuracy in 2b \n", accuracy);
+[top_features_sorted , top_features_order] = sort(top_features,'descend');
+tf = top_features_order(1:5);
+
+disp('2d)');
+fprintf("Features that are considered as important overall, ranked according to number of times they appear as important \n amonge 100 trees in the ensemble  : ");
+for i=1:5
+    fprintf("%d,", tf(i));
+end
+fprintf("\n");
+
+function top_featues = important_features(tree)
+    top_featues = zeros(30,1);
+    cut_pred = tree.CutPredictor(1:7);
+    for i=1:7
+        val = cut_pred{i};
+        if(~isempty(val))
+            top_featues(str2num(val(2:end))) = 1;
+        end
+    end
+end
+
+##### SOURCE END #####
+--></body></html>

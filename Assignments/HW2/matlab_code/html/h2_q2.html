@@ -1,0 +1,259 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>h2_q2</title><meta name="generator" content="MATLAB 9.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2019-02-19"><meta name="DC.source" content="h2_q2.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><pre class="codeinput"><span class="comment">% Homework 2 - Question 2</span>
+data = csvread(<span class="string">'brca.csv'</span>);
+
+lambda = generate_lambda(0, 0.1, 0.01);
+Y = data(:, end);
+X = data(:, 1:end-1);
+
+<span class="comment">%a)</span>
+disp(<span class="string">"2a) 5-fold CV"</span>)
+perform_cross_validation(X,Y,5, lambda, 1);
+disp(<span class="string">"Average MSE and Sparsity as a function of lambda"</span>)
+snapnow
+<span class="comment">%b)</span>
+disp(<span class="string">""</span>)
+disp(<span class="string">"2b) 10-fold CV"</span>)
+perform_cross_validation(X,Y,10, lambda, 3);
+disp(<span class="string">"Average MSE and Sparsity as a function of lambda"</span>);
+snapnow
+
+disp(<span class="string">" The optimal lambda value is same in case of 5-fold CV and 10-fold CV. The number of non-zeros decreases as we increase lambda."</span>)
+<span class="comment">%c)</span>
+disp(<span class="string">""</span>)
+rng <span class="string">default</span>
+disp(<span class="string">"2c) 5-fold CV using lassoplot"</span>)
+use_built_in(X, Y, 5, lambda);
+
+disp(<span class="string">"10-fold CV using lassoplot"</span>)
+use_built_in(X, Y, 10, lambda);
+
+disp(<span class="string">"The optimal lambda value might have differed if the input data wasnt randomly permuted."</span>);
+disp(<span class="string">"Also, lassoplot ignores lamda=0, as it reduces to OLS in this case"</span>);
+
+<span class="keyword">function</span> perform_cross_validation(X,Y,k, lambda, fig_no)
+    average_MSE = zeros(size(lambda));
+    average_non_zeros = zeros(size(lambda));
+    <span class="keyword">for</span> j = 1:length(lambda)
+        c = lambda(j);
+        chunk_size = size(Y,1)/k;
+        <span class="keyword">for</span> i=1:k
+            index = (i * chunk_size) - chunk_size;
+            X_test = X(index+1:index+chunk_size, :);
+            Y_test = Y(index+1:index+chunk_size, :);
+            X_train = [X(1:index, :);X(index+chunk_size+1:end, :)];
+            Y_train = [Y(1:index);Y(index+chunk_size+1:end)];
+            [B,FitInfo]  = lasso(X_train, Y_train, <span class="string">"Lambda"</span>, c);
+            coef0 = FitInfo.Intercept;
+            average_MSE(j) = average_MSE(j) + mean((Y_test-(X_test * B + coef0)).^2);
+            average_non_zeros(j) = average_non_zeros(j) + nnz(B);
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+    average_MSE = average_MSE/k;
+    average_non_zeros = average_non_zeros/k;
+    <span class="comment">%subplot(2,1,1);</span>
+    <span class="comment">%disp("Average MSE as a function of lambda = ")</span>
+    figure(fig_no);
+    plot(lambda, average_MSE);
+    xlabel(<span class="string">'lambda'</span>)
+    ylabel(<span class="string">'Mean Squared Error'</span>)
+    figure(fig_no+1);
+    <span class="comment">%subplot(2,1,2);</span>
+    <span class="comment">%disp("Sparsity as a function of lambda = ")</span>
+    plot(lambda, average_non_zeros);
+    xlabel(<span class="string">'lambda'</span>)
+    ylabel(<span class="string">'Number of non zero coefficients'</span>)
+    [M, min_idx] = min(average_MSE);
+    lamda_optimal = lambda(min_idx)
+<span class="keyword">end</span>
+
+
+<span class="keyword">function</span> use_built_in(X,Y, k, lambda)
+    [B, FitInfo] = lasso(X,Y,<span class="string">'Lambda'</span>, lambda, <span class="string">'CV'</span>, k);
+    lassoPlot(B,FitInfo,<span class="string">'PlotType'</span>,<span class="string">'CV'</span>);
+    snapnow
+<span class="keyword">end</span>
+
+
+<span class="keyword">function</span> lambda = generate_lambda(min, max, spacing)
+    lambda = [];
+    i = min;
+    <span class="keyword">while</span> i &lt;= max
+        lambda = [lambda; i];
+        i = i + spacing;
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">2a) 5-fold CV
+
+lamda_optimal =
+
+    0.0400
+
+Average MSE and Sparsity as a function of lambda
+</pre><img vspace="5" hspace="5" src="h2_q2_01.png" alt=""> <img vspace="5" hspace="5" src="h2_q2_02.png" alt=""> <pre class="codeoutput">2b) 10-fold CV
+
+lamda_optimal =
+
+    0.0400
+
+Average MSE and Sparsity as a function of lambda
+</pre><img vspace="5" hspace="5" src="h2_q2_03.png" alt=""> <img vspace="5" hspace="5" src="h2_q2_04.png" alt=""> <pre class="codeoutput"> The optimal lambda value is same in case of 5-fold CV and 10-fold CV. The number of non-zeros decreases as we increase lambda.
+2c) 5-fold CV using lassoplot
+</pre><img vspace="5" hspace="5" src="h2_q2_05.png" alt=""> <pre class="codeoutput">10-fold CV using lassoplot
+</pre><img vspace="5" hspace="5" src="h2_q2_06.png" alt=""> <pre class="codeoutput">The optimal lambda value might have differed if the input data wasnt randomly permuted.
+Also, lassoplot ignores lamda=0, as it reduces to OLS in this case
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2018a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+% Homework 2 - Question 2
+data = csvread('brca.csv');
+
+lambda = generate_lambda(0, 0.1, 0.01);
+Y = data(:, end);
+X = data(:, 1:end-1);
+
+%a)
+disp("2a) 5-fold CV")
+perform_cross_validation(X,Y,5, lambda, 1);
+disp("Average MSE and Sparsity as a function of lambda")
+snapnow
+%b)
+disp("")
+disp("2b) 10-fold CV")
+perform_cross_validation(X,Y,10, lambda, 3);
+disp("Average MSE and Sparsity as a function of lambda");
+snapnow
+
+disp(" The optimal lambda value is same in case of 5-fold CV and 10-fold CV. The number of non-zeros decreases as we increase lambda.")
+%c)
+disp("")
+rng default
+disp("2c) 5-fold CV using lassoplot")
+use_built_in(X, Y, 5, lambda);
+
+disp("10-fold CV using lassoplot")
+use_built_in(X, Y, 10, lambda);
+
+disp("The optimal lambda value might have differed if the input data wasnt randomly permuted.");
+disp("Also, lassoplot ignores lamda=0, as it reduces to OLS in this case");
+
+function perform_cross_validation(X,Y,k, lambda, fig_no)
+    average_MSE = zeros(size(lambda));
+    average_non_zeros = zeros(size(lambda));
+    for j = 1:length(lambda)
+        c = lambda(j);
+        chunk_size = size(Y,1)/k;
+        for i=1:k
+            index = (i * chunk_size) - chunk_size;
+            X_test = X(index+1:index+chunk_size, :);
+            Y_test = Y(index+1:index+chunk_size, :);
+            X_train = [X(1:index, :);X(index+chunk_size+1:end, :)];
+            Y_train = [Y(1:index);Y(index+chunk_size+1:end)];
+            [B,FitInfo]  = lasso(X_train, Y_train, "Lambda", c);
+            coef0 = FitInfo.Intercept;
+            average_MSE(j) = average_MSE(j) + mean((Y_test-(X_test * B + coef0)).^2);
+            average_non_zeros(j) = average_non_zeros(j) + nnz(B);
+        end
+    end
+    average_MSE = average_MSE/k;
+    average_non_zeros = average_non_zeros/k;
+    %subplot(2,1,1);
+    %disp("Average MSE as a function of lambda = ")
+    figure(fig_no);
+    plot(lambda, average_MSE);
+    xlabel('lambda')
+    ylabel('Mean Squared Error')
+    figure(fig_no+1);
+    %subplot(2,1,2);
+    %disp("Sparsity as a function of lambda = ")
+    plot(lambda, average_non_zeros);
+    xlabel('lambda')
+    ylabel('Number of non zero coefficients')
+    [M, min_idx] = min(average_MSE);
+    lamda_optimal = lambda(min_idx)
+end
+
+
+function use_built_in(X,Y, k, lambda)
+    [B, FitInfo] = lasso(X,Y,'Lambda', lambda, 'CV', k);
+    lassoPlot(B,FitInfo,'PlotType','CV');
+    snapnow
+end
+
+
+function lambda = generate_lambda(min, max, spacing)
+    lambda = [];
+    i = min;
+    while i <= max
+        lambda = [lambda; i];
+        i = i + spacing;
+    end
+end
+##### SOURCE END #####
+--></body></html>

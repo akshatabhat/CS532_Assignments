@@ -1,0 +1,485 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>h4_q5</title><meta name="generator" content="MATLAB 9.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2019-03-26"><meta name="DC.source" content="h4_q5.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><pre class="codeinput"><span class="comment">%Question 5</span>
+data = readtable(<span class="string">'spectral.csv'</span>);
+x1 = data.Var1;
+x2 = data.Var2;
+Y = data.Var3;
+Y(Y==1) = 2;
+Y(Y==0) = 1;
+X = [x1 x2];
+
+
+disp(<span class="string">'5a)'</span>);
+figure(1)
+disp(<span class="string">'Scatter Plot'</span>)
+gscatter(x1, x2, Y);
+title(<span class="string">'Scatter Plot'</span>)
+snapnow;
+
+disp(<span class="string">'5b)'</span>)
+figure(2);
+[idx, C] = kmeans(X, 2, <span class="string">'Start'</span>, <span class="string">'Sample'</span>, <span class="string">'Replicates'</span>,100, <span class="string">'MaxIter'</span>, 200);
+disp(<span class="string">'Scatter Plot'</span>)
+gscatter(x1, x2, idx);
+xlabel(<span class="string">'x1'</span>);
+ylabel(<span class="string">'x2'</span>);
+title(<span class="string">'Scatter Plot'</span>)
+hold <span class="string">on</span>;
+plot(C(:,1), C(:,2), <span class="string">'.k'</span>, <span class="string">'MarkerSize'</span>, 15);
+title(strcat(<span class="string">'kmeans, K=2'</span>));
+legend(<span class="string">'1'</span>,<span class="string">'2'</span>,<span class="string">'centroids'</span>)
+snapnow;
+
+print_mis_classification(idx, Y);
+disp(<span class="string">"5c) Spectral Clustering"</span>);
+
+figure(3);
+A_1 = build_adjacency_matrix(X, 0.5);
+G = graph(A_1);
+plot(G,<span class="string">'XData'</span>,X(:,1),<span class="string">'YData'</span>,X(:,2));
+xlabel(<span class="string">'x1'</span>);
+ylabel(<span class="string">'x2'</span>);
+title(<span class="string">'e-neighbourhood graph , e=0.5.'</span>);
+snapnow;
+
+figure(4);
+A_2 = build_adjacency_matrix(X, 1);
+G = graph(A_2);
+plot(G,<span class="string">'XData'</span>,X(:,1),<span class="string">'YData'</span>,X(:,2));
+xlabel(<span class="string">'x1'</span>);
+ylabel(<span class="string">'x2'</span>);
+title(<span class="string">'e-neighbourhood graph , e=1.'</span>);
+snapnow;
+
+figure(5);
+A_3 = build_adjacency_matrix(X, 2);
+G = graph(A_3);
+plot(G,<span class="string">'XData'</span>,X(:,1),<span class="string">'YData'</span>,X(:,2));
+xlabel(<span class="string">'x1'</span>);
+ylabel(<span class="string">'x2'</span>);
+title(<span class="string">'e-neighbourhood graph , e=2.'</span>);
+snapnow;
+
+figure(6);
+[idx, C] = perform_spectral_clustering(A_1, 2);
+gscatter(x1, x2, idx);
+xlabel(<span class="string">'x1'</span>);
+ylabel(<span class="string">'x2'</span>);
+hold <span class="string">on</span>;
+title(strcat(<span class="string">'Scatter Plot, K=2, e=0.5'</span>));
+legend(<span class="string">'1'</span>,<span class="string">'2'</span>);
+snapnow;
+print_mis_classification(idx, Y);
+
+
+figure(7);
+[idx, C] = perform_spectral_clustering(A_2, 2);
+gscatter(x1, x2, idx);
+xlabel(<span class="string">'x1'</span>);
+ylabel(<span class="string">'x2'</span>);
+hold <span class="string">on</span>;
+title(strcat(<span class="string">'Scatter Plot, K=2, e=1'</span>));
+legend(<span class="string">'1'</span>,<span class="string">'2'</span>);
+snapnow;
+print_mis_classification(idx, Y);
+
+figure(8);
+[idx, C] = perform_spectral_clustering(A_3, 2);
+gscatter(x1, x2, idx);
+xlabel(<span class="string">'x1'</span>);
+ylabel(<span class="string">'x2'</span>);
+hold <span class="string">on</span>;
+title(strcat(<span class="string">'Scatter Plot, K=2, e=2'</span>));
+legend(<span class="string">'1'</span>,<span class="string">'2'</span>);
+snapnow;
+print_mis_classification(idx, Y);
+
+disp(<span class="string">'5d)'</span>)
+A_1 = build_gaussian_sim_graph(X, 0.1);
+
+figure(9);
+[idx, C] = perform_spectral_clustering(A_1, 2);
+gscatter(x1, x2, idx);
+xlabel(<span class="string">'x1'</span>);
+ylabel(<span class="string">'x2'</span>);
+hold <span class="string">on</span>;
+title(strcat(<span class="string">'spectral clustering, K=2, sigma=0.1'</span>));
+legend(<span class="string">'1'</span>,<span class="string">'2'</span>);
+snapnow;
+print_mis_classification(idx, Y);
+
+A_2 = build_gaussian_sim_graph(X, 0.5);
+
+figure(10);
+[idx, C] = perform_spectral_clustering(A_2, 2);
+gscatter(x1, x2, idx);
+xlabel(<span class="string">'x1'</span>);
+ylabel(<span class="string">'x2'</span>);
+hold <span class="string">on</span>;
+title(strcat(<span class="string">'spectral clustering, K=2, sigma=0.5'</span>));
+legend(<span class="string">'1'</span>,<span class="string">'2'</span>);
+snapnow;
+print_mis_classification(idx, Y);
+
+
+figure(11);
+[idx, C] = perform_spectral_clustering(A_3, 2);
+gscatter(x1, x2, idx);
+xlabel(<span class="string">'x1'</span>);
+ylabel(<span class="string">'x2'</span>);
+hold <span class="string">on</span>;
+title(strcat(<span class="string">'spectral clustering, K=2, sigma=1'</span>));
+legend(<span class="string">'1'</span>,<span class="string">'2'</span>);
+snapnow;
+print_mis_classification(idx, Y);
+
+figure(12);
+A_3 = build_gaussian_sim_graph(X, 1);
+G = graph(A_3);
+plot(G,<span class="string">'XData'</span>,X(:,1),<span class="string">'YData'</span>,X(:,2));
+xlabel(<span class="string">'x1'</span>);
+ylabel(<span class="string">'x2'</span>);
+title(<span class="string">'e-neighbourhood graph'</span>);
+snapnow;
+
+<span class="keyword">function</span> [idx, C] = perform_spectral_clustering(W, k)
+    D = diag(sum(W,2));
+    L = D - W;
+    <span class="comment">%[V, D] = eig(L);</span>
+    <span class="comment">%eigenvalues = diag(D);</span>
+    <span class="comment">%[~, id] = mink(eigenvalues, k)</span>
+    [U,~] = eigs(L,k,1e-13);
+    <span class="comment">%U = V(:,id);</span>
+    [idx, C] = kmeans(U, k, <span class="string">'Start'</span>, <span class="string">'Sample'</span>, <span class="string">'Replicates'</span>, 100, <span class="string">'MaxIter'</span>, 500);
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> A=build_adjacency_matrix(X, e)
+    sz = size(X,1);
+    A = zeros(sz, sz);
+    <span class="keyword">for</span> i=1:sz
+        <span class="keyword">for</span> j=i+1:sz
+            dist = norm(X(i,:)-X(j,:));
+            <span class="keyword">if</span> dist &lt;= e
+                A(i,j) = 1;
+                A(j,i) = 1;
+            <span class="keyword">end</span>
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> A=build_gaussian_sim_graph(X, sigma)
+    sz = size(X,1);
+    A = zeros(sz, sz);
+    <span class="keyword">for</span> i=1:sz
+        <span class="keyword">for</span> j=i+1:sz
+            w = exp(-(norm(X(i,:)-X(j,:))^2/(2*sigma^2)));
+            A(i,j) = w;
+            A(j,i) = w;
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+<span class="keyword">function</span> print_mis_classification(pred, Y)
+    sz_1 = sum(Y==1);
+    sz_2 = sum(Y==2);
+    C(1) = sum(pred(1:sz_1,:)==1);
+    C(2) = sum(pred(1:sz_1,:)==2);
+    [max_val, id] = max(C);
+    mishit_1 = abs(sz_1-max_val)/sz_1;
+    <span class="keyword">if</span> id == 1
+        mishit_2 = abs(sz_2 - sum(pred(sz_2:end,:)==2))/sz_2;
+    <span class="keyword">else</span>
+        mishit_2 = abs(sz_2 - sum(pred(sz_2:end,:)==1))/sz_2;
+    <span class="keyword">end</span>
+
+    fprintf(<span class="string">"Incorrectly classified fraction for category 1 = %f \n"</span>, mishit_1);
+    fprintf(<span class="string">"Incorrectly classified fraction for category 2 = %f \n"</span>, mishit_2);
+
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">5a)
+Scatter Plot
+</pre><img vspace="5" hspace="5" src="h4_q5_01.png" alt=""> <pre class="codeoutput">5b)
+Scatter Plot
+</pre><img vspace="5" hspace="5" src="h4_q5_02.png" alt=""> <pre class="codeoutput">Incorrectly classified fraction for category 1 = 0.430000 
+Incorrectly classified fraction for category 2 = 0.540000 
+5c) Spectral Clustering
+</pre><img vspace="5" hspace="5" src="h4_q5_03.png" alt=""> <img vspace="5" hspace="5" src="h4_q5_04.png" alt=""> <img vspace="5" hspace="5" src="h4_q5_05.png" alt=""> <img vspace="5" hspace="5" src="h4_q5_06.png" alt=""> <pre class="codeoutput">Incorrectly classified fraction for category 1 = 0.008000 
+Incorrectly classified fraction for category 2 = 1.000000 
+</pre><img vspace="5" hspace="5" src="h4_q5_07.png" alt=""> <pre class="codeoutput">Incorrectly classified fraction for category 1 = 0.012000 
+Incorrectly classified fraction for category 2 = 1.000000 
+</pre><img vspace="5" hspace="5" src="h4_q5_08.png" alt=""> <pre class="codeoutput">Incorrectly classified fraction for category 1 = 0.000000 
+Incorrectly classified fraction for category 2 = 0.002000 
+5d)
+</pre><img vspace="5" hspace="5" src="h4_q5_09.png" alt=""> <pre class="codeoutput">Incorrectly classified fraction for category 1 = 0.000000 
+Incorrectly classified fraction for category 2 = 0.986000 
+</pre><img vspace="5" hspace="5" src="h4_q5_10.png" alt=""> <pre class="codeoutput">Incorrectly classified fraction for category 1 = 0.000000 
+Incorrectly classified fraction for category 2 = 0.000000 
+</pre><img vspace="5" hspace="5" src="h4_q5_11.png" alt=""> <pre class="codeoutput">Incorrectly classified fraction for category 1 = 0.000000 
+Incorrectly classified fraction for category 2 = 0.002000 
+</pre><img vspace="5" hspace="5" src="h4_q5_12.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2018a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%Question 5
+data = readtable('spectral.csv');
+x1 = data.Var1;
+x2 = data.Var2;
+Y = data.Var3;
+Y(Y==1) = 2;
+Y(Y==0) = 1;
+X = [x1 x2];
+
+
+disp('5a)');
+figure(1)
+disp('Scatter Plot')
+gscatter(x1, x2, Y);
+title('Scatter Plot')
+snapnow;
+
+disp('5b)')
+figure(2);
+[idx, C] = kmeans(X, 2, 'Start', 'Sample', 'Replicates',100, 'MaxIter', 200);
+disp('Scatter Plot')
+gscatter(x1, x2, idx);
+xlabel('x1');
+ylabel('x2');
+title('Scatter Plot')
+hold on;
+plot(C(:,1), C(:,2), '.k', 'MarkerSize', 15);
+title(strcat('kmeans, K=2'));
+legend('1','2','centroids')
+snapnow;
+
+print_mis_classification(idx, Y);
+disp("5c) Spectral Clustering");
+
+figure(3);
+A_1 = build_adjacency_matrix(X, 0.5);
+G = graph(A_1);
+plot(G,'XData',X(:,1),'YData',X(:,2));
+xlabel('x1');
+ylabel('x2');
+title('e-neighbourhood graph , e=0.5.');
+snapnow;
+
+figure(4);
+A_2 = build_adjacency_matrix(X, 1);
+G = graph(A_2);
+plot(G,'XData',X(:,1),'YData',X(:,2));
+xlabel('x1');
+ylabel('x2');
+title('e-neighbourhood graph , e=1.');
+snapnow;
+
+figure(5);
+A_3 = build_adjacency_matrix(X, 2);
+G = graph(A_3);
+plot(G,'XData',X(:,1),'YData',X(:,2));
+xlabel('x1');
+ylabel('x2');
+title('e-neighbourhood graph , e=2.');
+snapnow;
+
+figure(6);
+[idx, C] = perform_spectral_clustering(A_1, 2);
+gscatter(x1, x2, idx);
+xlabel('x1');
+ylabel('x2');
+hold on;
+title(strcat('Scatter Plot, K=2, e=0.5'));
+legend('1','2');
+snapnow;
+print_mis_classification(idx, Y);
+
+
+figure(7);
+[idx, C] = perform_spectral_clustering(A_2, 2);
+gscatter(x1, x2, idx);
+xlabel('x1');
+ylabel('x2');
+hold on;
+title(strcat('Scatter Plot, K=2, e=1'));
+legend('1','2');
+snapnow;
+print_mis_classification(idx, Y);
+
+figure(8);
+[idx, C] = perform_spectral_clustering(A_3, 2);
+gscatter(x1, x2, idx);
+xlabel('x1');
+ylabel('x2');
+hold on;
+title(strcat('Scatter Plot, K=2, e=2'));
+legend('1','2');
+snapnow;
+print_mis_classification(idx, Y);
+
+disp('5d)')
+A_1 = build_gaussian_sim_graph(X, 0.1);
+
+figure(9);
+[idx, C] = perform_spectral_clustering(A_1, 2);
+gscatter(x1, x2, idx);
+xlabel('x1');
+ylabel('x2');
+hold on;
+title(strcat('spectral clustering, K=2, sigma=0.1'));
+legend('1','2');
+snapnow;
+print_mis_classification(idx, Y);
+
+A_2 = build_gaussian_sim_graph(X, 0.5);
+
+figure(10);
+[idx, C] = perform_spectral_clustering(A_2, 2);
+gscatter(x1, x2, idx);
+xlabel('x1');
+ylabel('x2');
+hold on;
+title(strcat('spectral clustering, K=2, sigma=0.5'));
+legend('1','2');
+snapnow;
+print_mis_classification(idx, Y);
+
+
+figure(11);
+[idx, C] = perform_spectral_clustering(A_3, 2);
+gscatter(x1, x2, idx);
+xlabel('x1');
+ylabel('x2');
+hold on;
+title(strcat('spectral clustering, K=2, sigma=1'));
+legend('1','2');
+snapnow;
+print_mis_classification(idx, Y);
+
+figure(12);
+A_3 = build_gaussian_sim_graph(X, 1);
+G = graph(A_3);
+plot(G,'XData',X(:,1),'YData',X(:,2));
+xlabel('x1');
+ylabel('x2');
+title('e-neighbourhood graph');
+snapnow;
+
+function [idx, C] = perform_spectral_clustering(W, k)
+    D = diag(sum(W,2));
+    L = D - W;
+    %[V, D] = eig(L);
+    %eigenvalues = diag(D);
+    %[~, id] = mink(eigenvalues, k)
+    [U,~] = eigs(L,k,1e-13);
+    %U = V(:,id);
+    [idx, C] = kmeans(U, k, 'Start', 'Sample', 'Replicates', 100, 'MaxIter', 500);
+end
+
+function A=build_adjacency_matrix(X, e)
+    sz = size(X,1);
+    A = zeros(sz, sz);
+    for i=1:sz
+        for j=i+1:sz
+            dist = norm(X(i,:)-X(j,:));
+            if dist <= e
+                A(i,j) = 1;
+                A(j,i) = 1;
+            end
+        end
+    end
+end
+
+function A=build_gaussian_sim_graph(X, sigma)
+    sz = size(X,1);
+    A = zeros(sz, sz);
+    for i=1:sz
+        for j=i+1:sz
+            w = exp(-(norm(X(i,:)-X(j,:))^2/(2*sigma^2)));
+            A(i,j) = w;
+            A(j,i) = w;
+        end
+    end
+end
+function print_mis_classification(pred, Y)
+    sz_1 = sum(Y==1);
+    sz_2 = sum(Y==2);
+    C(1) = sum(pred(1:sz_1,:)==1);
+    C(2) = sum(pred(1:sz_1,:)==2);
+    [max_val, id] = max(C);
+    mishit_1 = abs(sz_1-max_val)/sz_1;
+    if id == 1
+        mishit_2 = abs(sz_2 - sum(pred(sz_2:end,:)==2))/sz_2;
+    else
+        mishit_2 = abs(sz_2 - sum(pred(sz_2:end,:)==1))/sz_2;
+    end
+    
+    fprintf("Incorrectly classified fraction for category 1 = %f \n", mishit_1);
+    fprintf("Incorrectly classified fraction for category 2 = %f \n", mishit_2);
+
+end
+
+##### SOURCE END #####
+--></body></html>

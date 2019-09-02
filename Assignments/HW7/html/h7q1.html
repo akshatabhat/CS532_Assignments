@@ -1,0 +1,271 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>h7q1</title><meta name="generator" content="MATLAB 9.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2019-05-09"><meta name="DC.source" content="h7q1.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><pre class="codeinput"><span class="comment">% Homework 7 - Question 1</span>
+X = csvread(<span class="string">'faces.csv'</span>);
+<span class="comment">%colormap(gray); imagesc(reshape(X(10,:),112,92));</span>
+n = size(X,1);
+disp(<span class="string">"1a)"</span>)
+Z = pdist(X, <span class="string">'squaredeuclidean'</span>);
+D = squareform(Z);
+
+q=2;
+Y = calculate_mds(D, q);
+figure(1);
+scatter(Y(:,1), Y(:,2), <span class="string">'.'</span>);
+a = [1:n]'; b = num2str(a); c = cellstr(b);
+dx = 0.1; dy = 0.1;
+text(Y(:,1)+dx, Y(:,2)+dy, c);
+title(<span class="string">'MDS'</span>)
+xlabel(<span class="string">'y1'</span>);
+ylabel(<span class="string">'y2'</span>);
+snapnow;
+
+coeff = pca(X);
+U = coeff(:,1:q);
+Y = (X*U);
+figure(2);
+scatter(-Y(:,1), -Y(:,2), <span class="string">'.'</span>);
+a = [1:n]'; b = num2str(a); c = cellstr(b);
+dx = 0.1; dy = 0.1;
+text(-Y(:,1)+dx, -Y(:,2)+dy, c);
+title(<span class="string">'PCA'</span>)
+xlabel(<span class="string">'y1'</span>);
+ylabel(<span class="string">'y2'</span>);
+snapnow;
+fprintf(<span class="string">"The results of MDS with Sqaured Euclidan Distances and PCA are similar.\n"</span>);
+disp(<span class="string">"1b)"</span>)
+k = 5;
+idx = knnsearch(X, X, <span class="string">'K'</span>, k+1);
+idx = idx(:,2:end);
+W = zeros(n);
+<span class="keyword">for</span> i=1:n
+    W(i, idx(i,:)) = 1;
+    W(idx(i,:),i) = 1;
+<span class="keyword">end</span>
+D=diag(sum(W,2));
+L = D - W;
+[U,lambda] = eigs(L,D, q+1, <span class="string">'smallestabs'</span>);
+Y = U(:,2:end);
+
+figure(3);
+scatter(Y(:,1), Y(:,2), <span class="string">'.'</span>);
+a = [1:n]'; b = num2str(a); c = cellstr(b);
+dx = 0.1; dy = 0.1;
+text(Y(:,1), Y(:,2), c);
+title(<span class="string">'Laplacian Eigenmaps'</span>)
+xlabel(<span class="string">'y1'</span>);
+ylabel(<span class="string">'y2'</span>);
+snapnow;
+
+disp(<span class="string">"1c)"</span>)
+D = distances(graph(W));
+Y = calculate_mds(D, q);
+figure(4);
+scatter(Y(:,1), Y(:,2), <span class="string">'.'</span>);
+a = [1:n]'; b = num2str(a); c = cellstr(b);
+text(Y(:,1), Y(:,2), c);
+title(<span class="string">'Isomap'</span>)
+xlabel(<span class="string">'y1'</span>);
+ylabel(<span class="string">'y2'</span>);
+snapnow;
+
+disp(<span class="string">"1d)"</span>)
+figure(5)
+set(gcf, <span class="string">'PaperUnits'</span>,<span class="string">'inches'</span>);
+set(gcf, <span class="string">'PaperSize'</span>,[10, 10]);
+colormap(gray);
+<span class="keyword">for</span> i=1:n
+    subplot(3, 11, i);
+    imagesc(reshape(X(i,:),112,92));
+    set(gca, <span class="string">'XTickLabel'</span>, []);
+    set(gca, <span class="string">'YTickLabel'</span>, []);
+<span class="keyword">end</span>
+snapnow;
+
+fprintf(<span class="string">"One key thing to note is that, each image is captured from different angle(head is rotated in images). Also in some images the head of the woman \n is tilted, however this is not very clear. These are the two properties could be captured in the dimensions. \n"</span>)
+fprintf(<span class="string">"Looks like Laplacian Eigenmaps or Isomap is doing better than PCA and MDS. Group of the images which are very similar, show up close to each other \n in Isomap and Laplacian  Eigenmaps - this could to be attributed to the fact that they perform non-linear dimensionality reduction. \n"</span>)
+<span class="keyword">function</span> Y = calculate_mds(D, q)
+    n = size(D,1);
+    temp = eye(n) - (1/n)*ones(n);
+    B = (-1/2) * temp * D * temp;
+    [V, D] = eig(B);
+    [D_sorted, D_order] = sort(diag(D), <span class="string">'descend'</span>);
+    V=V(:, D_order);
+    U=V(:, 1:q);
+    lambda = diag(D_sorted(1:q));
+    Y = U*lambda;
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">1a)
+</pre><img vspace="5" hspace="5" src="h7q1_01.png" alt=""> <img vspace="5" hspace="5" src="h7q1_02.png" alt=""> <pre class="codeoutput">The results of MDS with Sqaured Euclidan Distances and PCA are similar.
+1b)
+</pre><img vspace="5" hspace="5" src="h7q1_03.png" alt=""> <pre class="codeoutput">1c)
+</pre><img vspace="5" hspace="5" src="h7q1_04.png" alt=""> <pre class="codeoutput">1d)
+</pre><img vspace="5" hspace="5" src="h7q1_05.png" alt=""> <pre class="codeoutput">One key thing to note is that, each image is captured from different angle(head is rotated in images). Also in some images the head of the woman 
+ is tilted, however this is not very clear. These are the two properties could be captured in the dimensions. 
+Looks like Laplacian Eigenmaps or Isomap is doing better than PCA and MDS. Group of the images which are very similar, show up close to each other 
+ in Isomap and Laplacian  Eigenmaps - this could to be attributed to the fact that they perform non-linear dimensionality reduction. 
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2018a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+% Homework 7 - Question 1
+X = csvread('faces.csv');
+%colormap(gray); imagesc(reshape(X(10,:),112,92));
+n = size(X,1);
+disp("1a)")
+Z = pdist(X, 'squaredeuclidean');
+D = squareform(Z);
+
+q=2;
+Y = calculate_mds(D, q);
+figure(1);
+scatter(Y(:,1), Y(:,2), '.');
+a = [1:n]'; b = num2str(a); c = cellstr(b);
+dx = 0.1; dy = 0.1;
+text(Y(:,1)+dx, Y(:,2)+dy, c);
+title('MDS')
+xlabel('y1');
+ylabel('y2');
+snapnow;
+
+coeff = pca(X);
+U = coeff(:,1:q);
+Y = (X*U);
+figure(2);
+scatter(-Y(:,1), -Y(:,2), '.');
+a = [1:n]'; b = num2str(a); c = cellstr(b);
+dx = 0.1; dy = 0.1;
+text(-Y(:,1)+dx, -Y(:,2)+dy, c);
+title('PCA')
+xlabel('y1');
+ylabel('y2');
+snapnow;
+fprintf("The results of MDS with Sqaured Euclidan Distances and PCA are similar.\n");
+disp("1b)")
+k = 5;
+idx = knnsearch(X, X, 'K', k+1);
+idx = idx(:,2:end);
+W = zeros(n);
+for i=1:n
+    W(i, idx(i,:)) = 1;
+    W(idx(i,:),i) = 1;
+end
+D=diag(sum(W,2));
+L = D - W;
+[U,lambda] = eigs(L,D, q+1, 'smallestabs');
+Y = U(:,2:end);
+
+figure(3);
+scatter(Y(:,1), Y(:,2), '.');
+a = [1:n]'; b = num2str(a); c = cellstr(b);
+dx = 0.1; dy = 0.1;
+text(Y(:,1), Y(:,2), c);
+title('Laplacian Eigenmaps')
+xlabel('y1');
+ylabel('y2');
+snapnow;
+
+disp("1c)")
+D = distances(graph(W));
+Y = calculate_mds(D, q);
+figure(4);
+scatter(Y(:,1), Y(:,2), '.');
+a = [1:n]'; b = num2str(a); c = cellstr(b);
+text(Y(:,1), Y(:,2), c);
+title('Isomap')
+xlabel('y1');
+ylabel('y2');
+snapnow;
+
+disp("1d)")
+figure(5)
+set(gcf, 'PaperUnits','inches');
+set(gcf, 'PaperSize',[10, 10]);
+colormap(gray);
+for i=1:n
+    subplot(3, 11, i);
+    imagesc(reshape(X(i,:),112,92));
+    set(gca, 'XTickLabel', []);
+    set(gca, 'YTickLabel', []);
+end
+snapnow;
+
+fprintf("One key thing to note is that, each image is captured from different angle(head is rotated in images). Also in some images the head of the woman \n is tilted, however this is not very clear. These are the two properties could be captured in the dimensions. \n")
+fprintf("Looks like Laplacian Eigenmaps or Isomap is doing better than PCA and MDS. Group of the images which are very similar, show up close to each other \n in Isomap and Laplacian  Eigenmaps - this could to be attributed to the fact that they perform non-linear dimensionality reduction. \n")
+function Y = calculate_mds(D, q)
+    n = size(D,1);
+    temp = eye(n) - (1/n)*ones(n);
+    B = (-1/2) * temp * D * temp;
+    [V, D] = eig(B);
+    [D_sorted, D_order] = sort(diag(D), 'descend');
+    V=V(:, D_order); 
+    U=V(:, 1:q);
+    lambda = diag(D_sorted(1:q));
+    Y = U*lambda;
+end
+##### SOURCE END #####
+--></body></html>

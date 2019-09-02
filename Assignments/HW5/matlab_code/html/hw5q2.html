@@ -1,0 +1,272 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>hw5q2</title><meta name="generator" content="MATLAB 9.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2019-04-09"><meta name="DC.source" content="hw5q2.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><pre class="codeinput"><span class="comment">% Homework 5 - Question 2</span>
+X_train = csvread(<span class="string">'X_train.csv'</span>);
+Y_train = csvread(<span class="string">'Y_train.csv'</span>);
+<span class="comment">%figure(1);colormap(gray);</span>
+<span class="comment">%imagesc(reshape(X(10,:),112,92));</span>
+disp(<span class="string">'2a)'</span>)
+M = 112;
+N = 92;
+X_train_new = X_train - mean(X_train);
+n = size(X_train_new,1);
+S = 1/n * (X_train_new' * X_train_new);
+[V, ~] = eigs(S, 10);
+
+<span class="keyword">for</span> i=1:10
+    figure();colormap(gray);
+    imagesc(reshape(V(:,i), M, N));
+    snapnow;
+<span class="keyword">end</span>
+disp(<span class="string">"Characteristics captured by eigenfaces :-"</span>);
+fprintf(<span class="string">"1 - Most of the Hair \n 2 - eyes and nose \n 3 - eyes \n 4 - Hair \n 5 - Right side of face"</span>);
+fprintf(<span class="string">"6 - Hair, eyes and mouth \n 7 - Cheeks \n \n 8 - One eye \n 9 - Chin \n 10 - eyebrows, nose and mustache, ears, chin \n"</span>);
+
+disp(<span class="string">'2b)'</span>);
+D = eigs(S, M*N);
+plot(D);xlim([0 100]);
+title(<span class="string">'Elbow Plot'</span>);
+snapnow;
+elbow = 20;
+fprintf(<span class="string">'Elbow is approximately found at q=%d \n'</span>, elbow);
+var = (sum(D(1:elbow))*100)/sum(D);
+fprintf(<span class="string">"Percentage of variance explained = %f \n"</span>, var);
+
+disp(<span class="string">'2c)'</span>);
+X_test = csvread(<span class="string">'X_test.csv'</span>);
+Y_test = csvread(<span class="string">'Y_test.csv'</span>);
+[V, ~] = eigs(S, 50);
+X_P_train = X_train_new*V;
+X_test_new = X_test - mean(X_test);
+X_P_test = X_test_new*V;
+correctly_classified = 0;
+Y_pred=zeros(size(X_P_test,1));
+<span class="keyword">for</span> i=1:size(X_P_test,1)
+    dist = zeros(size(X_train,1),1);
+    <span class="keyword">for</span> j=1:size(X_train,1)
+        dist(j)=norm(X_P_train(j,:)'-X_P_test(i,:)');
+    <span class="keyword">end</span>
+    [~,ind] = min(dist);
+    Y_pred(i) = Y_train(ind);
+    <span class="keyword">if</span> Y_test(i)==Y_pred(i)
+        correctly_classified = correctly_classified+1;
+    <span class="keyword">else</span>
+        figure
+        colormap(gray);
+        imagesc(reshape(X_test(i,:), M, N));
+        title(<span class="string">'Test Image'</span>)
+        snapnow;
+        figure
+        colormap(gray);
+        imagesc(reshape(X_train(ind,:), M, N));
+        title(<span class="string">'Train Image'</span>)
+        snapnow;
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+fprintf(<span class="string">"Correctly classified Fraction with PCA = %.2f%% \n"</span>, (correctly_classified*100)/size(X_test,1));
+correctly_classified = 0;
+disp(<span class="string">'2d)'</span>);
+<span class="keyword">for</span> i=1:size(X_test,1)
+    dist = zeros(size(X_train,1),1);
+    <span class="keyword">for</span> j=1:size(X_train,1)
+        dist(j)=norm(X_train(j,:)'-X_test(i,:)');
+    <span class="keyword">end</span>
+    [~,ind] = min(dist);
+    Y_pred(i) = Y_train(ind);
+    <span class="keyword">if</span> Y_test(i)==Y_pred(i)
+        correctly_classified = correctly_classified+1;
+    <span class="keyword">else</span>
+        figure
+        colormap(gray);
+        imagesc(reshape(X_test(i,:), M, N));
+        title(<span class="string">'Test Image'</span>)
+        snapnow;
+        figure
+        colormap(gray);
+        imagesc(reshape(X_train(ind,:), M, N));
+        title(<span class="string">'Train Image'</span>)
+        snapnow;
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+fprintf(<span class="string">"Correctly classified Fraction without PCA = %.2f%% \n"</span>, (correctly_classified*100)/size(X_test,1));
+</pre><pre class="codeoutput">2a)
+</pre><img vspace="5" hspace="5" src="hw5q2_01.png" alt=""> <img vspace="5" hspace="5" src="hw5q2_02.png" alt=""> <img vspace="5" hspace="5" src="hw5q2_03.png" alt=""> <img vspace="5" hspace="5" src="hw5q2_04.png" alt=""> <img vspace="5" hspace="5" src="hw5q2_05.png" alt=""> <img vspace="5" hspace="5" src="hw5q2_06.png" alt=""> <img vspace="5" hspace="5" src="hw5q2_07.png" alt=""> <img vspace="5" hspace="5" src="hw5q2_08.png" alt=""> <img vspace="5" hspace="5" src="hw5q2_09.png" alt=""> <img vspace="5" hspace="5" src="hw5q2_10.png" alt=""> <pre class="codeoutput">Characteristics captured by eigenfaces :-
+1 - Most of the Hair 
+ 2 - eyes and nose 
+ 3 - eyes 
+ 4 - Hair 
+ 5 - Right side of face6 - Hair, eyes and mouth 
+ 7 - Cheeks 
+ 
+ 8 - One eye 
+ 9 - Chin 
+ 10 - eyebrows, nose and mustache, ears, chin 
+2b)
+</pre><img vspace="5" hspace="5" src="hw5q2_11.png" alt=""> <pre class="codeoutput">Elbow is approximately found at q=20 
+Percentage of variance explained = 70.266018 
+2c)
+</pre><img vspace="5" hspace="5" src="hw5q2_12.png" alt=""> <img vspace="5" hspace="5" src="hw5q2_13.png" alt=""> <img vspace="5" hspace="5" src="hw5q2_14.png" alt=""> <img vspace="5" hspace="5" src="hw5q2_15.png" alt=""> <pre class="codeoutput">Correctly classified Fraction with PCA = 95.00% 
+2d)
+</pre><img vspace="5" hspace="5" src="hw5q2_16.png" alt=""> <img vspace="5" hspace="5" src="hw5q2_17.png" alt=""> <img vspace="5" hspace="5" src="hw5q2_18.png" alt=""> <img vspace="5" hspace="5" src="hw5q2_19.png" alt=""> <img vspace="5" hspace="5" src="hw5q2_20.png" alt=""> <img vspace="5" hspace="5" src="hw5q2_21.png" alt=""> <pre class="codeoutput">Correctly classified Fraction without PCA = 92.50% 
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2018a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+% Homework 5 - Question 2
+X_train = csvread('X_train.csv');
+Y_train = csvread('Y_train.csv');
+%figure(1);colormap(gray);
+%imagesc(reshape(X(10,:),112,92));
+disp('2a)')
+M = 112;
+N = 92;
+X_train_new = X_train - mean(X_train);
+n = size(X_train_new,1);
+S = 1/n * (X_train_new' * X_train_new);
+[V, ~] = eigs(S, 10);
+
+for i=1:10
+    figure();colormap(gray);
+    imagesc(reshape(V(:,i), M, N));
+    snapnow;
+end
+disp("Characteristics captured by eigenfaces :-");
+fprintf("1 - Most of the Hair \n 2 - eyes and nose \n 3 - eyes \n 4 - Hair \n 5 - Right side of face");
+fprintf("6 - Hair, eyes and mouth \n 7 - Cheeks \n \n 8 - One eye \n 9 - Chin \n 10 - eyebrows, nose and mustache, ears, chin \n");
+
+disp('2b)');
+D = eigs(S, M*N);
+plot(D);xlim([0 100]);
+title('Elbow Plot');
+snapnow;
+elbow = 20;
+fprintf('Elbow is approximately found at q=%d \n', elbow);
+var = (sum(D(1:elbow))*100)/sum(D);
+fprintf("Percentage of variance explained = %f \n", var);
+
+disp('2c)');
+X_test = csvread('X_test.csv');
+Y_test = csvread('Y_test.csv');
+[V, ~] = eigs(S, 50);
+X_P_train = X_train_new*V;
+X_test_new = X_test - mean(X_test);
+X_P_test = X_test_new*V;
+correctly_classified = 0;
+Y_pred=zeros(size(X_P_test,1));
+for i=1:size(X_P_test,1)
+    dist = zeros(size(X_train,1),1);
+    for j=1:size(X_train,1)
+        dist(j)=norm(X_P_train(j,:)'-X_P_test(i,:)');
+    end
+    [~,ind] = min(dist);
+    Y_pred(i) = Y_train(ind);
+    if Y_test(i)==Y_pred(i)
+        correctly_classified = correctly_classified+1;
+    else
+        figure
+        colormap(gray);
+        imagesc(reshape(X_test(i,:), M, N));
+        title('Test Image')
+        snapnow;
+        figure
+        colormap(gray);
+        imagesc(reshape(X_train(ind,:), M, N));
+        title('Train Image')
+        snapnow;
+    end
+end
+
+fprintf("Correctly classified Fraction with PCA = %.2f%% \n", (correctly_classified*100)/size(X_test,1));
+correctly_classified = 0;
+disp('2d)');
+for i=1:size(X_test,1)
+    dist = zeros(size(X_train,1),1);
+    for j=1:size(X_train,1)
+        dist(j)=norm(X_train(j,:)'-X_test(i,:)');
+    end
+    [~,ind] = min(dist);
+    Y_pred(i) = Y_train(ind);
+    if Y_test(i)==Y_pred(i)
+        correctly_classified = correctly_classified+1;
+    else            
+        figure
+        colormap(gray);
+        imagesc(reshape(X_test(i,:), M, N));
+        title('Test Image')
+        snapnow;
+        figure
+        colormap(gray);
+        imagesc(reshape(X_train(ind,:), M, N));
+        title('Train Image')
+        snapnow;
+    end
+end
+fprintf("Correctly classified Fraction without PCA = %.2f%% \n", (correctly_classified*100)/size(X_test,1));
+
+##### SOURCE END #####
+--></body></html>

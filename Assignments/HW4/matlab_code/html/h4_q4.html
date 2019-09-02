@@ -1,0 +1,284 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>h4_q4</title><meta name="generator" content="MATLAB 9.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2019-03-26"><meta name="DC.source" content="h4_q4.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><pre class="codeinput"><span class="comment">%Question 4</span>
+[data, TEXT, raw]  = xlsread(<span class="string">'nutrients.xlsx'</span>);
+food_items = TEXT(2:end, 1:2);
+X = data(:,1:end-1);
+
+disp(<span class="string">'4a)'</span>);
+figure(1);
+J = [];
+cluster_centres = [];
+<span class="keyword">for</span> k=2:10
+    [idx, C, sumd] = kmeans(X, k, <span class="string">'Start'</span>, <span class="string">'sample'</span>, <span class="string">'Replicates'</span>,100, <span class="string">'MaxIter'</span>,200);
+    J = [J; sum(sumd)];
+    cluster_centres = [cluster_centres ; C];
+<span class="keyword">end</span>
+plot(2:10, J, <span class="string">'-o'</span>);
+xlabel(<span class="string">'k'</span>);
+ylabel(<span class="string">'J'</span>);
+title(<span class="string">'Elbow Pl0t'</span>)
+snapnow;
+disp(<span class="string">'Based on the elbow plot, I would consider K=4, 5 or 6 as the elbow'</span>);
+
+disp(<span class="string">'4b)'</span>)
+figure(2);
+i=1;
+<span class="keyword">for</span> k=3:7
+    subplot(2, 3, i);
+    [idx, C] = kmeans(X, k, <span class="string">'Start'</span>, <span class="string">'sample'</span>, <span class="string">'Replicates'</span>,100, <span class="string">'MaxIter'</span>,200);
+    [s, h] = silhouette(X, idx);
+    title(strcat(<span class="string">'k='</span>,int2str(k)));
+    fprintf(<span class="string">"K=%d , Silhouette Score=%f \n"</span>, k, sum(s)/size(s, 1));
+    i = i+ 1;
+<span class="keyword">end</span>
+snapnow;
+
+disp(<span class="string">"4c)"</span>)
+start_idx = 1;
+<span class="keyword">for</span> k=2:10
+    indices = [];
+    centroids = cluster_centres(start_idx: start_idx+k-1, :);
+    <span class="keyword">for</span> c=1:size(centroids,1)
+        [~, idx] = min(vecnorm(X-centroids(c,:),2,2));
+        indices = [indices; idx];
+    <span class="keyword">end</span>
+    fprintf(<span class="string">"K=%d, Food Representatives : \n"</span>, k);
+    disp(food_items(indices,:));
+    start_idx = start_idx +k;
+<span class="keyword">end</span>
+
+disp(<span class="string">'4d)'</span>);
+
+disp(<span class="string">' From elbow plot, the conclusion was the choose K=4, 5, or 6.'</span>);
+disp(<span class="string">'From the silhouette values, though the average value is maximum when K=3, clusters don&#8217;t seem to be well distributed'</span>);
+disp(<span class="string">'- most of the items are in cluster 1 and extremely few in cluster 3. Similar observation with K=4 and K=5.'</span>);
+disp(<span class="string">'For K=6 and K=7,  the cluster size distribution seems better.'</span>);
+disp(<span class="string">'However, by looking at the average silhouette score for varying K, the score for K=7 is much lower.'</span>);
+
+disp(<span class="string">' From food domain knowledge, we can see that if we take K=6, we have food items from 6 different groups.'</span>);
+disp(<span class="string">'(Whereas for K=4, 5 or 7, some food groups are repeated). '</span>);
+
+disp(<span class="string">'Hence, I think we should select K=6.'</span>);
+</pre><pre class="codeoutput">4a)
+</pre><img vspace="5" hspace="5" src="h4_q4_01.png" alt=""> <pre class="codeoutput">Based on the elbow plot, I would consider K=4, 5 or 6 as the elbow
+4b)
+K=3 , Silhouette Score=0.742971 
+K=4 , Silhouette Score=0.716766 
+K=5 , Silhouette Score=0.706845 
+K=6 , Silhouette Score=0.680982 
+K=7 , Silhouette Score=0.650313 
+</pre><img vspace="5" hspace="5" src="h4_q4_02.png" alt=""> <pre class="codeoutput">4c)
+K=2, Food Representatives : 
+    'Edamame, frozen, prepared'    'Vegetables and Vegetable Products'
+    'Croissants, cheese'           'Baked Products'                   
+
+K=3, Food Representatives : 
+    'Biscuits, plain or buttermilk, &#8230;'    'Baked Products'       
+    'Stew, mutton, corn, squash (Nav&#8230;'    'Ethnic Foods'         
+    'Nuts, formulated, wheat-based, &#8230;'    'Nut and Seed Products'
+
+K=4, Food Representatives : 
+    'Fast foods, miniature cinnamon &#8230;'    'Fast Foods'                
+    'WENDY'S, CLASSIC SINGLE Hamburg&#8230;'    'Fast Foods'                
+    'Soup, pea, split with ham, cann&#8230;'    'Soups, Sauces, and Gravies'
+    'Pork, cured, salt pork, raw'          'Pork Products'             
+
+K=5, Food Representatives : 
+    'WORTHINGTON Stakelets, frozen, &#8230;'    'Legumes and Legume Products'
+    'Bread, pan dulce, sweet yeast b&#8230;'    'Baked Products'             
+    'Pie crust, cookie-type, prepare&#8230;'    'Baked Products'             
+    'Soup, vegetable chicken, canned&#8230;'    'Soups, Sauces, and Gravies' 
+    'Pork, fresh, variety meats and &#8230;'    'Pork Products'              
+
+K=6, Food Representatives : 
+    'Cereals ready-to-eat, POST, Gre&#8230;'    'Breakfast Cereals'          
+    'Peppered loaf, pork, beef'            'Sausages and Luncheon Meats'
+    'McDONALD'S, DOUBLE QUARTER POUN&#8230;'    'Fast Foods'                 
+    'CAMPBELL Soup Company, CAMPBELL&#8230;'    'Soups, Sauces, and Gravies' 
+    'Pork, fresh, variety meats and &#8230;'    'Pork Products'              
+    'Pie crust, cookie-type, prepare&#8230;'    'Baked Products'             
+
+K=7, Food Representatives : 
+    'Pork, fresh, variety meats and &#8230;'    'Pork Products'              
+    'Turkey sausage, reduced fat, br&#8230;'    'Sausages and Luncheon Meats'
+    'Fast foods, bagel, with egg, sa&#8230;'    'Fast Foods'                 
+    'Soup, tomato rice, canned, prep&#8230;'    'Soups, Sauces, and Gravies' 
+    'Cereals ready-to-eat, POST, Gre&#8230;'    'Breakfast Cereals'          
+    'Sauce, alfredo mix, dry'              'Soups, Sauces, and Gravies' 
+    'Honey loaf, pork, beef'               'Sausages and Luncheon Meats'
+
+K=8, Food Representatives : 
+    'Cereals ready-to-eat, granola, &#8230;'    'Breakfast Cereals'          
+    'Nuts, formulated, wheat-based, &#8230;'    'Nut and Seed Products'      
+    'BURGER KING, Cheeseburger'            'Fast Foods'                 
+    'Turkey sausage, reduced fat, br&#8230;'    'Sausages and Luncheon Meats'
+    'Honey loaf, pork, beef'               'Sausages and Luncheon Meats'
+    'Soup, tomato rice, canned, prep&#8230;'    'Soups, Sauces, and Gravies' 
+    'Cereals ready-to-eat, POST, Gre&#8230;'    'Breakfast Cereals'          
+    'Shortening, vegetable, househol&#8230;'    'Fats and Oils'              
+
+K=9, Food Representatives : 
+    'Cereals ready-to-eat, QUAKER, Q&#8230;'    'Breakfast Cereals'          
+    'Shortening, vegetable, househol&#8230;'    'Fats and Oils'              
+    'Nuts, formulated, wheat-based, &#8230;'    'Nut and Seed Products'      
+    'McDONALD'S, QUARTER POUNDER wit&#8230;'    'Fast Foods'                 
+    'WENDY'S, Chicken Nuggets'             'Fast Foods'                 
+    'MORNINGSTAR FARMS Hot and Spicy&#8230;'    'Legumes and Legume Products'
+    'Turkey, white, rotisserie, deli&#8230;'    'Sausages and Luncheon Meats'
+    'CAMPBELL Soup Company, CAMPBELL&#8230;'    'Soups, Sauces, and Gravies' 
+    'Cereals ready-to-eat, granola, &#8230;'    'Breakfast Cereals'          
+
+K=10, Food Representatives : 
+    'Turkey sausage, reduced fat, br&#8230;'    'Sausages and Luncheon Meats'      
+    'CAMPBELL Soup Company, CAMPBELL&#8230;'    'Soups, Sauces, and Gravies'       
+    'Fast foods, cheeseburger; singl&#8230;'    'Fast Foods'                       
+    'Shortening, vegetable, househol&#8230;'    'Fats and Oils'                    
+    'Nuts, formulated, wheat-based, &#8230;'    'Nut and Seed Products'            
+    'LOMA LINDA Tender Bits, canned,&#8230;'    'Legumes and Legume Products'      
+    'KENTUCKY FRIED CHICKEN, Fried C&#8230;'    'Fast Foods'                       
+    'Cereals ready-to-eat, QUAKER, Q&#8230;'    'Breakfast Cereals'                
+    'Okra, frozen, cooked, boiled, d&#8230;'    'Vegetables and Vegetable Products'
+    'Cereals ready-to-eat, granola, &#8230;'    'Breakfast Cereals'                
+
+4d)
+ From elbow plot, the conclusion was the choose K=4, 5, or 6.
+From the silhouette values, though the average value is maximum when K=3, clusters don&#8217;t seem to be well distributed
+- most of the items are in cluster 1 and extremely few in cluster 3. Similar observation with K=4 and K=5.
+For K=6 and K=7,  the cluster size distribution seems better.
+However, by looking at the average silhouette score for varying K, the score for K=7 is much lower.
+ From food domain knowledge, we can see that if we take K=6, we have food items from 6 different groups.
+(Whereas for K=4, 5 or 7, some food groups are repeated). 
+Hence, I think we should select K=6.
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2018a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%Question 4
+[data, TEXT, raw]  = xlsread('nutrients.xlsx');
+food_items = TEXT(2:end, 1:2);
+X = data(:,1:end-1);
+
+disp('4a)');
+figure(1);
+J = [];
+cluster_centres = [];
+for k=2:10
+    [idx, C, sumd] = kmeans(X, k, 'Start', 'sample', 'Replicates',100, 'MaxIter',200);
+    J = [J; sum(sumd)];
+    cluster_centres = [cluster_centres ; C];
+end
+plot(2:10, J, '-o');
+xlabel('k');
+ylabel('J');
+title('Elbow Pl0t')
+snapnow;
+disp('Based on the elbow plot, I would consider K=4, 5 or 6 as the elbow');
+
+disp('4b)')
+figure(2);
+i=1;
+for k=3:7
+    subplot(2, 3, i);
+    [idx, C] = kmeans(X, k, 'Start', 'sample', 'Replicates',100, 'MaxIter',200);
+    [s, h] = silhouette(X, idx);
+    title(strcat('k=',int2str(k)));
+    fprintf("K=%d , Silhouette Score=%f \n", k, sum(s)/size(s, 1));
+    i = i+ 1;
+end
+snapnow;
+
+disp("4c)")
+start_idx = 1;
+for k=2:10
+    indices = [];
+    centroids = cluster_centres(start_idx: start_idx+k-1, :);
+    for c=1:size(centroids,1)
+        [~, idx] = min(vecnorm(X-centroids(c,:),2,2));
+        indices = [indices; idx];
+    end
+    fprintf("K=%d, Food Representatives : \n", k);
+    disp(food_items(indices,:));
+    start_idx = start_idx +k;
+end
+
+disp('4d)');
+
+disp(' From elbow plot, the conclusion was the choose K=4, 5, or 6.');
+disp('From the silhouette values, though the average value is maximum when K=3, clusters don’t seem to be well distributed');
+disp('- most of the items are in cluster 1 and extremely few in cluster 3. Similar observation with K=4 and K=5.'); 
+disp('For K=6 and K=7,  the cluster size distribution seems better.');
+disp('However, by looking at the average silhouette score for varying K, the score for K=7 is much lower.'); 
+
+disp(' From food domain knowledge, we can see that if we take K=6, we have food items from 6 different groups.'); 
+disp('(Whereas for K=4, 5 or 7, some food groups are repeated). ');
+
+disp('Hence, I think we should select K=6.');
+ 
+
+##### SOURCE END #####
+--></body></html>

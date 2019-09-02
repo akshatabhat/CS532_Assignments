@@ -1,0 +1,290 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>h2_q1</title><meta name="generator" content="MATLAB 9.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2019-02-19"><meta name="DC.source" content="h2_q1.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><p><b>Homework 2 - Question 1</b></p><pre class="codeinput">data = readtable(<span class="string">'polydata.csv'</span>);
+Y = data.Var2;
+Y_size = size(Y);
+
+disp(<span class="string">"1a)"</span>);
+X_d1 = create_Matrix_X(data, 1);
+B_ols_d1 = fitlm(X_d1, Y);
+fprintf(<span class="string">"B_ols for polynomial degree 1 = \n"</span>);
+disp(B_ols_d1.Coefficients.Estimate)
+
+X_d2 = create_Matrix_X(data, 2);
+B_ols_d2 = fitlm(X_d2, Y);
+fprintf(<span class="string">"B_ols for polynomial degree 2 = \n"</span>);
+disp(B_ols_d2.Coefficients.Estimate)
+
+X_d3 = create_Matrix_X(data, 3);
+B_ols_d3 = fitlm(X_d3, Y);
+fprintf(<span class="string">"B_ols for polynomial degree 3 = \n"</span>);
+disp(B_ols_d3.Coefficients.Estimate)
+
+X_d4 = create_Matrix_X(data, 4);
+B_ols_d4 = fitlm(X_d4, Y);
+fprintf(<span class="string">"B_ols for polynomial degree 4 = \n"</span>);
+disp(B_ols_d4.Coefficients.Estimate)
+
+X_d5 = create_Matrix_X(data, 5);
+B_ols_d5 = fitlm(X_d5, Y);
+fprintf(<span class="string">"B_ols for polynomial degree 5 = \n"</span>);
+disp(B_ols_d5.Coefficients.Estimate)
+
+<span class="comment">%b)Scatter plot</span>
+disp(<span class="string">"1b)"</span>);
+scatter(X_d1, Y)
+hold <span class="string">on</span>
+
+myplot(X_d1, B_ols_d1.Coefficients.Estimate)
+myplot(X_d1, B_ols_d2.Coefficients.Estimate)
+myplot(X_d1, B_ols_d3.Coefficients.Estimate)
+myplot(X_d1, B_ols_d4.Coefficients.Estimate)
+myplot(X_d1, B_ols_d5.Coefficients.Estimate)
+legend(<span class="string">'Data'</span>, <span class="string">'Degree 1'</span>,<span class="string">'Degree 2'</span>, <span class="string">'Degree 3'</span>, <span class="string">'Degree 4'</span>, <span class="string">'Degree 5'</span>)
+
+snapnow
+
+<span class="comment">%c) Cross-validation</span>
+disp(<span class="string">"1c)"</span>);
+idxs = randperm(30);
+fprintf(<span class="string">"When using 5-fold cross validation, best degree polynomial = %d \n"</span>,perform_cross_validation(data, 5, 5, idxs));
+disp(<span class="string">"From the plots, it looks like the third order polynomial fits the data with some noise. However on repeating this"</span>);
+disp(<span class="string">"experiment multiple times, when the data is permuted, the best fit with varies d=3,4,5. Observed that d=3 is mostly the best fit."</span>);
+<span class="keyword">function</span> min_idx = perform_cross_validation(data, k, d, idxs)
+    average_MSE = zeros(d,1);
+    Y = data.Var2;
+    Y = Y(idxs);
+    <span class="keyword">for</span> j = 1:d
+        X = create_Matrix_X(data, j);
+        X = X(idxs, :);
+        chunk_size = size(Y,1)/k;
+        <span class="keyword">for</span> i=1:k
+            index = (i * chunk_size) - chunk_size;
+            X_test = X(index+1:index+chunk_size, :);
+            Y_test = Y(index+1:index+chunk_size, :);
+            X_train = [X(1:index, :);X(index+chunk_size+1:end, :)];
+            Y_train = [Y(1:index);Y(index+chunk_size+1:end)];
+            B = fitlm(X_train,Y_train);
+            yfit = predict(B, X_test);
+            average_MSE(j) = average_MSE(j) + mean((Y_test-yfit).^2);
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+    average_MSE = average_MSE/k;
+    fprintf(<span class="string">"Average MSE for degree polynomial from d=1:%d is \n"</span>, d);
+    fprintf(<span class="string">"%f \n"</span>, average_MSE);
+    [M, min_idx] = min(average_MSE);
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> X = create_Matrix_X(data, d)
+    Y = data.Var2;
+    X = zeros(size(Y,1),d);
+    <span class="keyword">for</span> k = 1:d
+        X(:, k) = data.Var1.^k;
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> myplot(X, B)
+t = linspace(min(X),max(X));
+plot(t, polyval(flipud(B), t))
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">1a)
+B_ols for polynomial degree 1 = 
+   -0.1191
+    0.2142
+
+B_ols for polynomial degree 2 = 
+    0.0088
+   -0.5382
+    0.7046
+
+B_ols for polynomial degree 3 = 
+   -0.0442
+    0.0331
+   -0.5857
+    0.7963
+
+B_ols for polynomial degree 4 = 
+   -0.0353
+   -0.1075
+   -0.0113
+   -0.0447
+    0.4024
+
+B_ols for polynomial degree 5 = 
+   -0.0567
+    0.3964
+   -3.3845
+    8.7537
+   -9.3436
+    3.8535
+
+1b)
+</pre><img vspace="5" hspace="5" src="h2_q1_01.png" alt=""> <pre class="codeoutput">1c)
+Average MSE for degree polynomial from d=1:5 is 
+0.003221 
+0.000625 
+0.000419 
+0.000474 
+0.000630 
+When using 5-fold cross validation, best degree polynomial = 3 
+From the plots, it looks like the third order polynomial fits the data with some noise. However on repeating this
+experiment multiple times, when the data is permuted, the best fit with varies d=3,4,5. Observed that d=3 is mostly the best fit.
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2018a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%%
+% *Homework 2 - Question 1*
+data = readtable('polydata.csv');
+Y = data.Var2;
+Y_size = size(Y);
+
+disp("1a)");
+X_d1 = create_Matrix_X(data, 1);
+B_ols_d1 = fitlm(X_d1, Y);
+fprintf("B_ols for polynomial degree 1 = \n");
+disp(B_ols_d1.Coefficients.Estimate)
+
+X_d2 = create_Matrix_X(data, 2);
+B_ols_d2 = fitlm(X_d2, Y);
+fprintf("B_ols for polynomial degree 2 = \n");
+disp(B_ols_d2.Coefficients.Estimate)
+
+X_d3 = create_Matrix_X(data, 3);
+B_ols_d3 = fitlm(X_d3, Y);
+fprintf("B_ols for polynomial degree 3 = \n");
+disp(B_ols_d3.Coefficients.Estimate)
+
+X_d4 = create_Matrix_X(data, 4);
+B_ols_d4 = fitlm(X_d4, Y);
+fprintf("B_ols for polynomial degree 4 = \n");
+disp(B_ols_d4.Coefficients.Estimate)
+
+X_d5 = create_Matrix_X(data, 5);
+B_ols_d5 = fitlm(X_d5, Y);
+fprintf("B_ols for polynomial degree 5 = \n");
+disp(B_ols_d5.Coefficients.Estimate)
+
+%b)Scatter plot
+disp("1b)");
+scatter(X_d1, Y)
+hold on
+
+myplot(X_d1, B_ols_d1.Coefficients.Estimate)
+myplot(X_d1, B_ols_d2.Coefficients.Estimate)
+myplot(X_d1, B_ols_d3.Coefficients.Estimate)
+myplot(X_d1, B_ols_d4.Coefficients.Estimate)
+myplot(X_d1, B_ols_d5.Coefficients.Estimate)
+legend('Data', 'Degree 1','Degree 2', 'Degree 3', 'Degree 4', 'Degree 5')
+
+snapnow
+
+%c) Cross-validation
+disp("1c)");
+idxs = randperm(30);
+fprintf("When using 5-fold cross validation, best degree polynomial = %d \n",perform_cross_validation(data, 5, 5, idxs));
+disp("From the plots, it looks like the third order polynomial fits the data with some noise. However on repeating this");
+disp("experiment multiple times, when the data is permuted, the best fit with varies d=3,4,5. Observed that d=3 is mostly the best fit.");
+function min_idx = perform_cross_validation(data, k, d, idxs)
+    average_MSE = zeros(d,1);
+    Y = data.Var2;
+    Y = Y(idxs);
+    for j = 1:d
+        X = create_Matrix_X(data, j);
+        X = X(idxs, :);
+        chunk_size = size(Y,1)/k;
+        for i=1:k
+            index = (i * chunk_size) - chunk_size;
+            X_test = X(index+1:index+chunk_size, :);
+            Y_test = Y(index+1:index+chunk_size, :);
+            X_train = [X(1:index, :);X(index+chunk_size+1:end, :)];
+            Y_train = [Y(1:index);Y(index+chunk_size+1:end)];
+            B = fitlm(X_train,Y_train);
+            yfit = predict(B, X_test);
+            average_MSE(j) = average_MSE(j) + mean((Y_test-yfit).^2);
+        end
+    end
+    average_MSE = average_MSE/k;
+    fprintf("Average MSE for degree polynomial from d=1:%d is \n", d);
+    fprintf("%f \n", average_MSE);
+    [M, min_idx] = min(average_MSE);
+end
+
+function X = create_Matrix_X(data, d)
+    Y = data.Var2;
+    X = zeros(size(Y,1),d);
+    for k = 1:d
+        X(:, k) = data.Var1.^k;
+    end
+end
+
+function myplot(X, B)
+t = linspace(min(X),max(X));
+plot(t, polyval(flipud(B), t))
+end
+##### SOURCE END #####
+--></body></html>
